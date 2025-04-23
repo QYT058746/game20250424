@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迷宮</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .maze-container {
+            display: grid;
+            grid-template-columns: repeat(5, 60px); /* 5x5 格子 */
+            grid-gap: 2px;
+            justify-content: center;
+            margin-top: 20px;
+            position: relative;
+            width: 320px;
+            height: 320px;
+        }
+
+        .cell {
+            width: 60px;
+            height: 60px;
+            background-color: lightgray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ccc;
+        }
+
+        .wall {
+            background-color: #333;
+        }
+
+        .start {
+            background-color: green;
+        }
+
+        .exit {
+            background-color: red;
+        }
+
+        .player {
+            background-color: yellow;
+            border: 2px solid #FFD700;
+        }
+        p{
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>迷宮1</h1>
+
+<p>red:終點</p>
+
+<!-- 迷宮容器 -->
+<div class="maze-container">
+    <div class="cell wall" id="cell0"></div>
+    <div class="cell wall" id="cell1"></div>
+    <div class="cell wall" id="cell2"></div>
+    <div class="cell wall" id="cell3"></div>
+    <div class="cell wall" id="cell4"></div>
+    <div class="cell wall" id="cell5"></div>
+    <div class="cell start" id="cell6"></div>
+    <div class="cell wall" id="cell7"></div>
+    <div class="cell" id="cell8"></div>
+    <div class="cell" id="cell9"></div>
+    <div class="cell wall" id="cell10"></div>
+    <div class="cell" id="cell11"></div>
+    <div class="cell wall" id="cell12"></div>
+    <div class="cell wall" id="cell13"></div>
+    <div class="cell" id="cell14"></div>
+    <div class="cell wall" id="cell15"></div>
+    <div class="cell" id="cell16"></div>
+    <div class="cell" id="cell17"></div>
+    <div class="cell" id="cell18"></div>
+    <div class="cell" id="cell19"></div>
+    <div class="cell wall" id="cell20"></div>
+    <div class="cell wall" id="cell21"></div>
+    <div class="cell exit" id="cell22"></div>
+    <div class="cell wall" id="cell23"></div>
+    <div class="cell wall" id="cell24"></div>
+</div>
+
+<script>
+    let playerPosition = 6;  // 玩家初始位置
+
+    const walls = [0,1,2,3,4,5,7,10,12,13,15,20,21,23,24];
+    const exit = 22;
+
+    function movePlayer(newPosition) {
+        // 確保新位置不在牆壁上
+        if (!walls.includes(newPosition)) {
+            playerPosition = newPosition;
+            updatePlayerPosition();
+        }
+        // 檢查是否到達出口
+        if (playerPosition === exit) {
+            alert('恭喜！你找到了出口！');
+        }
+    }
+
+    function updatePlayerPosition() {
+        // 移除玩家在當前格子中的顯示
+        document.querySelectorAll('.player').forEach(cell => {
+            cell.classList.remove('player');
+        });
+        // 顯示玩家在新位置
+        document.getElementById(`cell${playerPosition}`).classList.add('player');
+    }
+
+    // 初始化玩家位置
+    updatePlayerPosition();
+
+    window.location.href = "game-2.html";
+
+
+    // 監聽鍵盤事件，控制玩家移動
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'ArrowUp' && playerPosition >= 5) {
+            movePlayer(playerPosition - 5);  // 向上移動
+        } else if (event.key === 'ArrowDown' && playerPosition < 20) {
+            movePlayer(playerPosition + 5);  // 向下移動
+        } else if (event.key === 'ArrowLeft' && playerPosition % 5 !== 0) {
+            movePlayer(playerPosition - 1);  // 向左移動
+        } else if (event.key === 'ArrowRight' && playerPosition % 5 !== 4) {
+            movePlayer(playerPosition + 1);  // 向右移動
+        }
+    });
+</script>
+
+</body>
+</html>
