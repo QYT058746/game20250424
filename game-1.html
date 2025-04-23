@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>迷宮</title>
+    <title>迷宮1</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,6 +59,13 @@
             color: red;
         }
 
+        #nextButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            display: none; /* 開始時隱藏 */
+        }
+
     </style>
 </head>
 <body>
@@ -96,6 +103,8 @@
     <div class="cell wall" id="cell24"></div>
 </div>
 
+<button id="nextButton">進入第二關</button>
+
 <script>
     let playerPosition = 6;  // 玩家初始位置
 
@@ -111,6 +120,7 @@
         // 檢查是否到達出口
         if (playerPosition === exit) {
             alert('恭喜！你找到了出口！');
+            document.getElementById("nextButton").style.display = "inline-block";
         }
     }
 
@@ -126,7 +136,10 @@
     // 初始化玩家位置
     updatePlayerPosition();
 
-    window.location.href = "game-2.html";
+    // 假設在第一關頁面 game-1.html 中，按下 "進入第二關" 按鈕時觸發
+    document.getElementById("nextButton").onclick = function() {
+        window.location.href = "game-2.html";  // 跳轉到第二關
+    };
 
 
     // 監聽鍵盤事件，控制玩家移動
